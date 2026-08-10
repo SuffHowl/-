@@ -54,13 +54,16 @@
       opacity: 0.8;
     }
 
-    .photo {
-      width: 100%;
-      max-height: 350px;
-      object-fit: cover;
-      border-radius: 20px;
-      margin: 15px 0 20px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+   .photo {
+  width: 100%;
+  height: auto;          /* Высота сама подстроится под ширину */
+  max-height: 500px;     /* Ограничим высоту, чтобы не занимало весь экран */
+  object-fit: contain;   /* Вмещает фото в рамки без обрезки */
+  border-radius: 20px;
+  margin: 15px 0 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  background: #fce4ec;   /* Красивый фон, если по бокам пустота */
+}
     }
 
     .text {
