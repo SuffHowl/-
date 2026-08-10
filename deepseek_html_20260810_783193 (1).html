@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Предложение руки и сердца ❤️</title>
+  <style>
+    /* ---------- Общие стили ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', 'Arial', sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #fce4ec, #f3e5f5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Контейнер-карточка */
+    .container {
+      max-width: 700px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      border-radius: 30px;
+      padding: 40px 30px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      position: relative;
+      z-index: 10;
+      transition: all 0.3s ease;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #d81b60;
+      margin-bottom: 10px;
+      font-weight: 300;
+      letter-spacing: 2px;
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      color: #6a1b4d;
+      margin-bottom: 20px;
+      opacity: 0.8;
+    }
+
+    .photo {
+      width: 100%;
+      max-height: 350px;
+      object-fit: cover;
+      border-radius: 20px;
+      margin: 15px 0 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .text {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      color: #4a2c3a;
+      background: rgba(255, 255, 255, 0.5);
+      padding: 20px;
+      border-radius: 20px;
+      margin: 15px 0 25px;
+      white-space: pre-line; /* чтобы переносить строки в тексте */
+    }
+
+    /* Блок с кнопками */
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .btn {
+      padding: 16px 50px;
+      font-size: 1.5rem;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-weight: bold;
+      letter-spacing: 1px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+
+    .btn-yes {
+      background: #e91e63;
+      color: white;
+    }
+    .btn-yes:hover {
+      transform: scale(1.05);
+      background: #c2185b;
+      box-shadow: 0 10px 30px rgba(233, 30, 99, 0.4);
+    }
+
+    .btn-no {
+      background: #bdbdbd;
+      color: #333;
+      transition: all 0.1s ease;
+    }
+    .btn-no:hover {
+      background: #9e9e9e;
+    }
+
+    /* Поздравление (скрыто по умолчанию) */
+    .celebration {
+      display: none;
+      margin-top: 30px;
+      padding: 25px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 30px;
+      animation: fadeIn 1s ease;
+    }
+
+    .celebration h2 {
+      font-size: 2.8rem;
+      color: #d81b60;
+    }
+    .celebration p {
+      font-size: 1.3rem;
+      color: #4a2c3a;
+      margin-top: 10px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* Плавающие сердечки (фон) */
+    .heart-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .heart-bg span {
+      position: absolute;
+      display: block;
+      width: 30px;
+      height: 30px;
+      background: #f06292;
+      opacity: 0.2;
+      transform: rotate(45deg);
+      animation: floatUp 15s linear infinite;
+      bottom: -50px;
+    }
+
+    .heart-bg span::before,
+    .heart-bg span::after {
+      content: '';
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: #f06292;
+      border-radius: 50%;
+    }
+    .heart-bg span::before {
+      left: -15px;
+      top: 0;
+    }
+    .heart-bg span::after {
+      top: -15px;
+      left: 0;
+    }
+
+    @keyframes floatUp {
+      0% { transform: rotate(45deg) translateY(0) scale(1); opacity: 0.2; }
+      100% { transform: rotate(45deg) translateY(-120vh) scale(1.5); opacity: 0; }
+    }
+
+    /* Разные размеры и задержки для сердечек */
+    .heart-bg span:nth-child(1) { left: 5%; width: 20px; height: 20px; animation-duration: 12s; animation-delay: 0s; }
+    .heart-bg span:nth-child(2) { left: 15%; width: 40px; height: 40px; animation-duration: 18s; animation-delay: 2s; }
+    .heart-bg span:nth-child(3) { left: 25%; width: 25px; height: 25px; animation-duration: 14s; animation-delay: 4s; }
+    .heart-bg span:nth-child(4) { left: 35%; width: 50px; height: 50px; animation-duration: 20s; animation-delay: 1s; }
+    .heart-bg span:nth-child(5) { left: 45%; width: 30px; height: 30px; animation-duration: 16s; animation-delay: 3s; }
+    .heart-bg span:nth-child(6) { left: 55%; width: 35px; height: 35px; animation-duration: 13s; animation-delay: 5s; }
+    .heart-bg span:nth-child(7) { left: 65%; width: 22px; height: 22px; animation-duration: 17s; animation-delay: 2s; }
+    .heart-bg span:nth-child(8) { left: 75%; width: 45px; height: 45px; animation-duration: 19s; animation-delay: 0s; }
+    .heart-bg span:nth-child(9) { left: 85%; width: 28px; height: 28px; animation-duration: 15s; animation-delay: 4s; }
+    .heart-bg span:nth-child(10) { left: 95%; width: 38px; height: 38px; animation-duration: 14s; animation-delay: 3s; }
+
+    /* Адаптив для мобильных */
+    @media (max-width: 600px) {
+      .container { padding: 20px 15px; }
+      h1 { font-size: 2rem; }
+      .text { font-size: 1rem; padding: 15px; }
+      .btn { padding: 14px 30px; font-size: 1.2rem; }
+      .buttons { gap: 15px; }
+      .celebration h2 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Фон с анимированными сердечками -->
+  <div class="heart-bg">
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+
+  <!-- Основной контент -->
+  <div class="container">
+    <h1>❤️ Ты и Я ❤️</h1>
+    <p class="subtitle">Наша история любви</p>
+
+    <!-- Вставьте сюда свою фотографию (замените photo.jpg) -->
+    <img class="photo" src="https://via.placeholder.com/600x350/ffcdd2/6a1b4d?text=Ваше+фото" alt="Наше фото">
+
+    <div class="text">
+      Дорогая моя, <br>
+      Каждый день рядом с тобой – это счастье. <br>
+      Ты – моя вселенная, мой свет и вдохновение. <br><br>
+      Я хочу, чтобы мы всегда были вместе. <br>
+      <strong>Ты выйдешь за меня?</strong>
+    </div>
+
+    <!-- Блок кнопок -->
+    <div class="buttons">
+      <button class="btn btn-yes" id="btnYes">ДА ❤️</button>
+      <button class="btn btn-no" id="btnNo">НЕТ</button>
+    </div>
+
+    <!-- Скрытое поздравление (появится после нажатия "ДА") -->
+    <div class="celebration" id="celebration">
+      <h2>💍 Согласна! 💍</h2>
+      <p>
+        Ты – лучшее, что случалось со мной! <br>
+        Я бесконечно счастлив! 🥰
+      </p>
+      <!-- Можно добавить ещё эффекты -->
+    </div>
+  </div>
+
+  <script>
+    // ---------- Логика кнопок ----------
+
+    const btnYes = document.getElementById('btnYes');
+    const btnNo = document.getElementById('btnNo');
+    const celebration = document.getElementById('celebration');
+
+    // 1. Кнопка "НЕТ" убегает
+    function moveNoButton() {
+      // Получаем размеры окна и кнопки
+      const winWidth = window.innerWidth;
+      const winHeight = window.innerHeight;
+      const rect = btnNo.getBoundingClientRect();
+      const btnWidth = rect.width;
+      const btnHeight = rect.height;
+
+      // Случайные новые координаты (с учётом отступов, чтобы не вылезала за экран)
+      const padding = 20;
+      let newX = Math.random() * (winWidth - btnWidth - padding * 2) + padding;
+      let newY = Math.random() * (winHeight - btnHeight - padding * 2) + padding;
+
+      // Если кнопка в контейнере, а не в body, можно задать position: fixed, чтобы двигать по всему экрану.
+      // Проще сделать position: fixed для кнопки "НЕТ" в CSS, но тогда она будет поверх всего.
+      // Поскольку мы хотим, чтобы она оставалась в блоке .buttons, но убегала в пределах контейнера,
+      // лучше использовать position: relative и смещение через transform: translate.
+      // Однако в контейнере ограниченное пространство, поэтому кнопка может убегать за пределы контейнера.
+      // Чтобы она не выходила за границы окна, используем position: fixed и привяжем к body.
+      // Переключим стиль кнопки на fixed, если ещё не fixed.
+      if (btnNo.style.position !== 'fixed') {
+        btnNo.style.position = 'fixed';
+        btnNo.style.left = rect.left + 'px';
+        btnNo.style.top = rect.top + 'px';
+        btnNo.style.width = btnWidth + 'px';  // фиксируем размер
+        btnNo.style.zIndex = 1000;
+        // Убираем влияние родительского контейнера
+        btnNo.style.margin = '0';
+        // Чтобы не менялся размер при переходе
+      }
+
+      // Применяем новые координаты
+      btnNo.style.left = newX + 'px';
+      btnNo.style.top = newY + 'px';
+    }
+
+    // Наведение на "НЕТ" – убегаем
+    btnNo.addEventListener('mouseover', moveNoButton);
+    // На мобильных устройствах событие mouseover не всегда срабатывает, добавим touchstart
+    btnNo.addEventListener('touchstart', function(e) {
+      e.preventDefault(); // чтобы не вызывать клик
+      moveNoButton();
+    });
+
+    // Если вдруг кнопку удалось нажать (например, на очень маленьком экране), обработаем клик
+    btnNo.addEventListener('click', function(e) {
+      e.preventDefault();
+      moveNoButton();
+    });
+
+    // 2. Кнопка "ДА" – показываем поздравление и создаём эффект сердечек
+    btnYes.addEventListener('click', function() {
+      // Показываем блок celebration
+      celebration.style.display = 'block';
+
+      // Дополнительно: можно запустить конфетти из сердечек (создаём элементы на лету)
+      for (let i = 0; i < 30; i++) {
+        createFloatingHeart();
+      }
+
+      // Небольшой звуковой эффект? Можно добавить, если есть аудио.
+      // Отключаем кнопки после выбора (чтобы не нажимали повторно)
+      btnYes.disabled = true;
+      btnNo.disabled = true;
+      btnNo.style.opacity = '0.5';
+      btnYes.style.opacity = '0.5';
+    });
+
+    // Функция для создания падающих сердечек после "ДА"
+    function createFloatingHeart() {
+      const heart = document.createElement('div');
+      heart.innerHTML = '❤️';
+      heart.style.position = 'fixed';
+      heart.style.fontSize = (20 + Math.random() * 40) + 'px';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.top = '-50px';
+      heart.style.opacity = Math.random() * 0.8 + 0.2;
+      heart.style.pointerEvents = 'none';
+      heart.style.zIndex = '9999';
+      heart.style.transition = 'all 4s linear';
+      document.body.appendChild(heart);
+
+      // Анимация падения с вращением
+      setTimeout(() => {
+        heart.style.top = (window.innerHeight + 50) + 'px';
+        heart.style.transform = `rotate(${Math.random() * 720}deg)`;
+      }, 10);
+
+      // Удаляем элемент после анимации
+      setTimeout(() => {
+        heart.remove();
+      }, 5000);
+    }
+
+    // Адаптация: если окно меняет размер, пересчитываем позицию кнопки "НЕТ",
+    // чтобы она не вылетела за пределы. (Упростим: не будем усложнять)
+
+    // Также можно добавить, чтобы при загрузке кнопка "НЕТ" была в обычном положении
+    // Если мы перевели её в fixed, то при resize нужно корректировать, но для простоты опустим.
+  </script>
+
+</body>
+</html>
