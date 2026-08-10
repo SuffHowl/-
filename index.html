@@ -359,6 +359,59 @@
     // Также можно добавить, чтобы при загрузке кнопка "НЕТ" была в обычном положении
     // Если мы перевели её в fixed, то при resize нужно корректировать, но для простоты опустим.
   </script>
+<!-- Музыкальный плеер -->
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+  Ваш браузер не поддерживает аудио.
+</audio>
 
+<!-- Кнопка управления музыкой (плавающая в углу) -->
+<button id="musicBtn" style="position:fixed; bottom:20px; right:20px; z-index:999; background:#e91e63; color:white; border:none; border-radius:50%; width:60px; height:60px; font-size:24px; box-shadow:0 4px 15px rgba(233,30,99,0.4); cursor:pointer; transition:0.3s;" onclick="toggleMusic()">
+  🔇
+</button>
+
+<script>
+  // Логика включения/выключения музыки
+  var music = document.getElementById('bgMusic');
+  var btn = document.getElementById('musicBtn');
+  var isPlaying = false;
+
+  function toggleMusic() {
+    if (isPlaying) {
+      music.pause();
+      btn.innerHTML = '🔇';
+      isPlaying = false;
+    } else {
+      music.play().catch(function(error) {
+        // Если браузер блокирует автозапуск, это просто предупредит, но кнопка всё равно сработает
+        console.log('Нажмите ещё раз, если музыка не включилась.');
+      });
+      btn.innerHTML = '🔊';
+      isPlaying = true;
+    }
+  }
+
+  // Пытаемся включить музыку автоматически при клике по странице (первое касание)
+  document.addEventListener('click', function autoPlay() {
+    if (!isPlaying) {
+      music.play().then(() => {
+        btn.innerHTML = '🔊';
+        isPlaying = true;
+      }).catch(() => {});
+      document.removeEventListener('click', autoPlay);
+    }
+  });
+
+  // Если сайт открыт на телефоне, попробуем включить при первом касании экрана
+  document.addEventListener('touchstart', function autoPlayTouch() {
+    if (!isPlaying) {
+      music.play().then(() => {
+        btn.innerHTML = '🔊';
+        isPlaying = true;
+      }).catch(() => {});
+      document.removeEventListener('touchstart', autoPlayTouch);
+    }
+  });
+</script>
 </body>
 </html>
